@@ -38,7 +38,10 @@ RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86
     /opt/conda/bin/conda clean -afy
 
 # Install Jupyter conda packages
-RUN /opt/conda/bin/conda install jupyter -y --quiet
+RUN /opt/conda/bin/conda install jupyter -y --quiet && \
+    jupyter notebook --generate-config && \
+    sed -i "s/^\s*# c.NotebookApp.token\s*=.*$/c.NotebookApp.token=''/" /root/.jupyter/jupyter_notebook_config.py && \
+    sed -i "s/^\s*# c.NotebookApp.allow_password_change\s*=.*$/c.NotebookApp.allow_password_change=True/" /root/.jupyter/jupyter_notebook_config.py
 
 # Any ports required based on packages installed
 EXPOSE 8888/tcp
