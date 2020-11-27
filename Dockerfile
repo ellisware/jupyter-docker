@@ -45,6 +45,7 @@ RUN /opt/conda/bin/conda install jupyter -y --quiet && \
 
 # Any ports required based on packages installed
 EXPOSE 8888/tcp
+EXPOSE 8081/tcp
 
 # Persistant Storage for Notebooks
 VOLUME /opt/notebooks
